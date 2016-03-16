@@ -13,8 +13,8 @@
     (loop for line = (read-line in nil 'EOF)
 	 until (eq line 'EOF)
 	 do (let ((words-line (split-sequence:split-sequence #\; line)))
-	      (setf *lang1-list* (append *lang1-list* (list (nth 0 words-line))))
-	      (setf *lang2-list* (append *lang2-list* (list (nth 1 words-line))))))))
+	      (setf *lang1-list* (append (list (nth 0 words-line)) *lang1-list*))
+	      (setf *lang2-list* (append (list (nth 1 words-line)) *lang2-list*))))))
 
 
 (defun create-alist (&key (language 'lang1))
@@ -102,3 +102,5 @@
   (read-language-file :filename filename)
   (create-alist :language language)
   (loop-default :language language))
+
+
