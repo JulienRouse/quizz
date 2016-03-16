@@ -7,6 +7,7 @@ A little program that do quizz. I wrote it to learn vocabulary in a new language
 * [How to use it?](#how-to-use-it?)
 * [API](#api)
 * [Dependencies](#dependencies)
+* [Copyright](#copyright)
 * [TODO](#todo)
 
 
@@ -67,6 +68,12 @@ Or:
 * alexandria:switch
 * split-sequence:split-sequence
 
+##Copyright
+
+Copyright © 2016 Julien Rousé <julien.rouse@gmail.com>
+This work is free. You can redistribute it and/or modify it under the
+terms of the Do What The Fuck You Want To Public License, Version 2,
+as published by Sam Hocevar. See the LICENCE file for more details.
 
 ##TODO
 
