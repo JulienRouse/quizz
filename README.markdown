@@ -41,25 +41,25 @@ language can be either 'lang1 or 'lang2 respectively the words of
 the first or second column that are used as question in the quizz
 
 For example, if we have this in ./ressources/words:
-'''
+```
 hello;bonjour
-'''
+```
 
 Then the quizz can be:
-'''lisp
+```lisp
 >(quizz:play) 
 "Translate this word: hello"
 "bonjour"
 "correct! next:" ...
-'''
+```
 
 Or:
-'''
+```
 >(quizz:play :language 'lang2)
 "Translate this word: bonjour"
 "hello"
 "correct! next:" ...
-'''
+```
 
 ##TODO
 
