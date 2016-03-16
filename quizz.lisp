@@ -45,7 +45,7 @@
 
 (defun loop-default (&key (language 'lang1))
   (let ((current-question (ask-question :language language)))
-    (print "translate this word: ")
+    (print "Translate this word: ")
     (print current-question)
     (let* ((valid-answer (cdr (assoc current-question *quizz-list* :test #'string=)))
 	   (res (response valid-answer)))
@@ -67,7 +67,7 @@
   (setf *lang2-list* nil)
   (setf *quizz-list* nil))    
 
-(defun play (&key (filename #p "./ressources/words") (language 'lang1) )
+(defun play (&key (filename #p"./ressources/words") (language 'lang1) )
   "Main entry into the quizz. Loads the file specified, and build the quizz"
   (clean-data)
   (read-language-file :filename filename)
