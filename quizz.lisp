@@ -5,7 +5,7 @@
 (defparameter *lang1-list* nil)
 (defparameter *lang2-list* nil)
 (defparameter *quizz-list* nil)
-
+(defparameter *hint-level* 0)
 
 (defun read-language-file (&key (filename #p"./ressources/words"))
   "Read into the csv containing the words and puts them in language separated lists"
@@ -30,16 +30,34 @@
 		      *lang2-list*)))
     (nth (random (length key-list)) key-list)))
     
+(defun give-hint (word)
+  "Deliver hint to the user to help them find the word"
+  (alexandria:switch (*hint-level* :test #'eql)
+    (0 
+     (incf *hint-level*)
+     (format nil "First hint. This word is ~A letters long" (length word)))
+    (1 
+     (incf *hint-level*)
+     (format nil "Second hint. This word first letter is ~c." (char word 0)))
+    (otherwise
+     (format nil "Third and last hint. This word first letter is ~c and the last letter is ~c" (char word 0) (char word (- (length word) 1))))))
+
+
 (defun response (word)
   "Read input from the user until he use a command or find the right answer"  
   (let ((resp (read-line)))
     (alexandria:switch (resp :test #'string=)
       ("!quit" resp)
-      (word resp)
+      (word 
+       (setf *hint-level* 0)
+       resp)
       ("!help" 
        (print (instruction))
        (response word))
       ("!pass" resp)
+      ("!hint" 
+       (print (give-hint word))
+       (response word))
       (otherwise 
        (response word)))))
 
@@ -49,6 +67,7 @@
  Commands are: 
  -!help to get help 
  -!pass to pass the word and see the right answer
+ -!hint to get hints like number of letter in the word, then first letter, then last letter. 
  -!quit to exit.")
 
 (defun loop-default (&key (language 'lang1))
