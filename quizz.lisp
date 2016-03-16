@@ -31,14 +31,17 @@
     (nth (random (length key-list)) key-list)))
     
 (defun response (word)
-  "Wait for an input on the default input stream."
-  (let ((resp ""))
-    (loop while (and (not (string= resp "!quit"))
-		     (not (string= resp "!help"))
-		     (not (string= resp word)))
-       do 
-	 (setf resp (read-line)))
-    resp))
+  (let ((resp (read-line)))
+    (alexandria:switch (resp :test #'string=)
+      ("!quit" resp)
+      (word resp)
+      ("!help" 
+       (instruction)
+       (response word))
+      ("!pass" resp)
+      (otherwise 
+       (response word)))))
+
 
 (defun instruction ()
   "Find the correct word. Type !help to get help and !quit to exit.")
@@ -53,8 +56,9 @@
 	("!quit" 
 	 (clean-data)
 	 (print valid-answer))
-	("!help"  
-	 (print (instruction))
+	("!pass"  
+	 (print "Answer was:")
+	 (print valid-answer)
 	 (loop-default :language language))
 	(valid-answer 
 	 (print "correct! next:")
