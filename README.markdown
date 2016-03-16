@@ -77,7 +77,9 @@ as published by Sam Hocevar. See the LICENCE file for more details.
 
 ##TODO
 
-* Add a command !pass to pass when you don't know. 
 * Add a command !hint to help find the word, maybe revealing the number of letter and/or one or more letter of the word.
 * Maybe extend this to be able to support more languages in the csv file, to only write one time the words of each language if you want to learn multiples languages.
 * Add tests.
+* Add categories for questions
+* Add statistics (# of good answers/mistakes/pass)
+* When stats are done, stop asking randomly and ask for the words with lowest score 

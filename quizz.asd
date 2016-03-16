@@ -1,9 +1,9 @@
 ;;;; quizz.asd
 
 (asdf:defsystem #:quizz
-  :description "Describe quizz here"
+  :description "Little program that create quizz from a list of word. Created in the intent to learn vocabulary for a new language."
   :author "Julien Rousé"
-  :license "Specify license here"
+  :license "WTFPL"
   :depends-on (#:split-sequence
 	       #:alexandria)
   :serial t

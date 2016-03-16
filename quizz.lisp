@@ -31,12 +31,13 @@
     (nth (random (length key-list)) key-list)))
     
 (defun response (word)
+  "Read input from the user until he use a command or find the right answer"  
   (let ((resp (read-line)))
     (alexandria:switch (resp :test #'string=)
       ("!quit" resp)
       (word resp)
       ("!help" 
-       (instruction)
+       (print (instruction))
        (response word))
       ("!pass" resp)
       (otherwise 
@@ -44,7 +45,11 @@
 
 
 (defun instruction ()
-  "Find the correct word. Type !help to get help and !quit to exit.")
+  "Find the correct word.
+ Commands are: 
+ -!help to get help 
+ -!pass to pass the word and see the right answer
+ -!quit to exit.")
 
 (defun loop-default (&key (language 'lang1))
   (let ((current-question (ask-question :language language)))
@@ -73,6 +78,7 @@
 
 (defun play (&key (filename #p"./ressources/words") (language 'lang1) )
   "Main entry into the quizz. Loads the file specified, and build the quizz"
+  (print (instruction))
   (clean-data)
   (read-language-file :filename filename)
   (create-alist :language language)
