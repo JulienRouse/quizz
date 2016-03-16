@@ -6,6 +6,7 @@ A little program that do quizz. I wrote it to learn vocabulary in a new language
 
 * [How to use it?](#how-to-use-it?)
 * [API](#api)
+* [Dependencies](#dependencies)
 * [TODO](#todo)
 
 
@@ -60,6 +61,12 @@ Or:
 "hello"
 "correct! next:" ...
 ```
+
+##Dependencies
+
+* alexandria:switch
+* split-sequence:split-sequence
+
 
 ##TODO
 
