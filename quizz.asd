@@ -8,5 +8,5 @@
 	       #:alexandria)
   :serial t
   :components ((:file "package")
-               (:file "quizz")))
+	       (:file "quizz")))
 

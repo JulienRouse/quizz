@@ -27,9 +27,9 @@ While this library is not tracked by quicklisp, you can simply download the sour
 ```
 
 You can then guess any number of time until you find the right answer.
-You can also type in !quit to leave or !help to have a remainder of the existing command.
+You can also type in !quit to leave or !help to have a remainder of the existing command. Other commands include !pass and !hint.
 
-You must provide the words you want to take the quizz on.
+You must provide the file with the words you want to take the quizz on.
 The words must be in a file with comma separated value to be read correctly.
 You can find my list of words in quizz/ressources/words.
 
@@ -77,7 +77,6 @@ as published by Sam Hocevar. See the LICENCE file for more details.
 
 ##TODO
 
-* Add a command !hint to help find the word, maybe revealing the number of letter and/or one or more letter of the word.
 * Maybe extend this to be able to support more languages in the csv file, to only write one time the words of each language if you want to learn multiples languages.
 * Add tests.
 * Add categories for questions
