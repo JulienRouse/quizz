@@ -1,0 +1,58 @@
+;;;; quizz.lisp
+
+(in-package #:quizz)
+
+(defparameter *french-list* nil)
+(defparameter *croatian-list* nil)
+(defparameter *quizz-list* nil)
+
+
+(defun read-language-file (&key (filename #p"./ressources/words"))
+  (with-open-file (in filename)
+    (loop for line = (read-line in nil 'EOF)
+	 until (eq line 'EOF)
+	 do (let ((words-line (split-sequence:split-sequence #\; line)))
+	      (setf *french-list* (append *french-list* (list (nth 0 words-line))))
+	      (setf *croatian-list* (append *croatian-list* (list (nth 1 words-line)))))))
+  (print *french-list*)
+  (print *croatian-list*))
+
+
+(defun create-alist ()
+  (setf *quizz-list* (pairlis *french-list* *croatian-list*)))
+	      
+(defun ask-question (&key (language 'french))
+  (let ((key-list (if (eq language 'french)
+		      *french-list*
+		      *croatian-list*)))
+    (nth (random (length key-list)) key-list)))
+    
+(defun response (word)
+  (let ((resp ""))
+    (loop while (and (not (string= resp "!quit"))
+		     (not (string= resp word)))
+       do 
+	 (setf resp (read-line)))
+    resp))
+
+(defun instruction ()
+  "Find the correct word. Type !help to get help and !quit to exit.")
+
+(defun loop-default ()
+  (let ((current-question (ask-question)))
+    (print "translate this word: ")
+    (print current-question)
+    (let* ((valid-answer (cdr (assoc current-question *quizz-list* :test #'string=)))
+	   (res (response valid-answer)))
+      (alexandria:switch (res :test #'string=) 
+	("!quit" (print "Exiting now"))
+	("!help" (print (instruction)))
+	(valid-answer 
+	 (print "correct! next:")
+	 (loop-default)))))
+  nil)
+    
+(defun play ()
+  (read-language-file)
+  (create-alist)
+  (loop-default))
