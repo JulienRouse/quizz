@@ -5,7 +5,9 @@
   :author "Julien Rousé"
   :license "WTFPL"
   :depends-on (#:split-sequence
-	       #:alexandria)
+	       #:alexandria
+	       #:adw-charting
+	       #:adw-charting-vecto)
   :serial t
   :components ((:file "package")
 	       (:file "stats")
