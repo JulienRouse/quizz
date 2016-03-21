@@ -95,8 +95,8 @@
 (defun pie-chart (height width filename)
   "draw a pie-chart of the numbers of good and bad answers, pass and hint"
   (adw-charting:with-pie-chart (height width)
-    (adw-charting:add-slice "good answer" (get-number-good-answer))
-    (adw-charting:add-slice "bad answer" (get-number-bad-answer))
-    (adw-charting:add-slice "pass" (get-number-pass))
-    (adw-charting:add-slice "hint" (get-number-hint))
-    (adw-charting:save-file filename)))
+    (adw-charting:add-slice "good answer" (get-number-good-answer) :color '(0 1. 0))
+    (adw-charting:add-slice "bad answer" (get-number-bad-answer) :color '(1. 0 0 ))
+    (adw-charting:add-slice "pass" (get-number-pass) :color '(.3 .8 .8))
+    (adw-charting:add-slice "hint" (get-number-hint) :color '(0 0 1.))
+    (adw-charting:save-file  (merge-pathnames filename "./ressources/"))))

@@ -3,6 +3,7 @@
 (defpackage #:quizz
   (:use #:cl #:iterate)
   (:export
-   #:play))
+   #:play
+   #:pie-chart))
 
 
