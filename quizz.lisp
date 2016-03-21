@@ -7,7 +7,13 @@
 (defparameter *quizz-list* nil)
 (defparameter *hint-level* 0)
 
-(defconstant +help+ "Find the correct word. Commands are: 
+
+;;found in the sbcl manual
+(defmacro define-constant (name value &optional doc)
+  `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
+                      ,@(when doc (list doc))))
+
+(define-constant +help+ "Find the correct word. Commands are: 
  -!help to get help 
  -!pass to pass the word and see the right answer
  -!hint to get hints like number of letter in the word, then first letter, then last letter. 
@@ -62,14 +68,20 @@
   (print +help+))
 
 (defun command-hint (word)
+  (incr-hint)
   (print (give-hint word)))
 
 (defun command-pass (word)
+  (incr-pass)
   (reset-hint-level)
   (print word))
 
 (defun command-good-answer ()
+  (incr-good-answer)
   (reset-hint-level))
+
+(defun command-bad-answer ()
+  (incr-bad-answer))
 
 (defun response (word)
   "Read input from the user until he use a command or find the right answer"
@@ -89,7 +101,9 @@
 	 (command-hint word))
 	(word
 	 (command-good-answer)
-	 (leave)))
+	 (leave))
+	(otherwise 
+	 (command-bad-answer)))
       (setf resp (read-line)))
     resp))
 
@@ -121,8 +135,10 @@
   "Main entry into the quizz. Loads the file specified, and build the quizz"
   (print +help+)
   (clean-data)
+  (read-stats)
   (read-language-file :filename filename)
   (create-alist :language language)
-  (loop-default :language language))
+  (loop-default :language language)
+  (write-stats))
 
 

@@ -7,7 +7,7 @@
   :depends-on (#:split-sequence
 	       #:alexandria
 	       #:adw-charting
-	       #:adw-charting-vecto)
+	       #:adw-charting-vecto
 	       #:iterate)
   :serial t
   :components ((:file "package")
