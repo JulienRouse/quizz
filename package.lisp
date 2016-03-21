@@ -1,7 +1,7 @@
 ;;;; package.lisp
 
 (defpackage #:quizz
-  (:use #:cl)
+  (:use #:cl #:iterate)
   (:export
    #:play))
 

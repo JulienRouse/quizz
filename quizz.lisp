@@ -7,6 +7,13 @@
 (defparameter *quizz-list* nil)
 (defparameter *hint-level* 0)
 
+(defconstant +help+ "Find the correct word. Commands are: 
+ -!help to get help 
+ -!pass to pass the word and see the right answer
+ -!hint to get hints like number of letter in the word, then first letter, then last letter. 
+ -!quit to exit.")
+
+
 (defun read-language-file (&key (filename #p"./ressources/words"))
   "Read into the csv containing the words and puts them in language separated lists"
   (with-open-file (in filename)
@@ -43,8 +50,53 @@
      (format nil "Third and last hint. This word first letter is ~c and the last letter is ~c" (char word 0) (char word (- (length word) 1))))))
 
 
+(defun reset-hint-level ()
+  (setf *hint-level* 0))
+
+(defun command-quit (word)
+  (reset-hint-level)
+  (clean-data)
+  (print word))
+
+(defun command-help ()
+  (print +help+))
+
+(defun command-hint (word)
+  (print (give-hint word)))
+
+(defun command-pass (word)
+  (reset-hint-level)
+  (print word))
+
+(defun command-good-answer ()
+  (reset-hint-level))
+
 (defun response (word)
-  "Read input from the user until he use a command or find the right answer"  
+  "Read input from the user until he use a command or find the right answer"
+  (let ((resp (read-line)))
+    (iter 
+      (while t)
+      (alexandria:switch (resp :test #'string=)
+	("!quit" 
+	 (command-quit word)
+	 (leave))
+	("!help" 
+	 (command-help))
+	("!pass" 
+	 (command-pass word)
+	 (leave))
+	("!hint" 
+	 (command-hint word))
+	(word
+	 (command-good-answer)
+	 (leave)))
+      (setf resp (read-line)))
+    resp))
+
+
+
+(defun response-old (word)
+  "Read input from the user until he use a command or find the right answer"
   (let ((resp (read-line)))
     (alexandria:switch (resp :test #'string=)
       ("!quit" resp)
@@ -52,7 +104,7 @@
        (setf *hint-level* 0)
        resp)
       ("!help" 
-       (print (instruction))
+       (print +help+)
        (response word))
       ("!pass" resp)
       ("!hint" 
@@ -62,14 +114,6 @@
        (response word)))))
 
 
-(defun instruction ()
-  "Find the correct word.
- Commands are: 
- -!help to get help 
- -!pass to pass the word and see the right answer
- -!hint to get hints like number of letter in the word, then first letter, then last letter. 
- -!quit to exit.")
-
 (defun loop-default (&key (language 'lang1))
   (let ((current-question (ask-question :language language)))
     (print "Translate this word: ")
@@ -77,9 +121,7 @@
     (let* ((valid-answer (cdr (assoc current-question *quizz-list* :test #'string=)))
 	   (res (response valid-answer)))
       (alexandria:switch (res :test #'string=) 
-	("!quit" 
-	 (clean-data)
-	 (print valid-answer))
+	("!quit" (print "bye"))
 	("!pass"  
 	 (print "Answer was:")
 	 (print valid-answer)
@@ -97,7 +139,7 @@
 
 (defun play (&key (filename #p"./ressources/words") (language 'lang1) )
   "Main entry into the quizz. Loads the file specified, and build the quizz"
-  (print (instruction))
+  (print +help+)
   (clean-data)
   (read-language-file :filename filename)
   (create-alist :language language)

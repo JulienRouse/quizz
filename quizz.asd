@@ -5,7 +5,8 @@
   :author "Julien Rousé"
   :license "WTFPL"
   :depends-on (#:split-sequence
-	       #:alexandria)
+	       #:alexandria
+	       #:iterate)
   :serial t
   :components ((:file "package")
 	       (:file "quizz")))
