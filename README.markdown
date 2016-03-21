@@ -80,5 +80,5 @@ as published by Sam Hocevar. See the LICENCE file for more details.
 * Maybe extend this to be able to support more languages in the csv file, to only write one time the words of each language if you want to learn multiples languages.
 * Add tests.
 * Add categories for questions
-* Add statistics (# of good answers/mistakes/pass)
+* Add statistics (# of good answers/mistakes/pass/...)
 * When stats are done, stop asking randomly and ask for the words with lowest score 
