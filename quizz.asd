@@ -8,6 +8,7 @@
 	       #:alexandria
 	       #:adw-charting
 	       #:adw-charting-vecto)
+	       #:iterate)
   :serial t
   :components ((:file "package")
 	       (:file "stats")
