@@ -1,7 +1,7 @@
 #QUIZZ
 
 
-A little program that do quizz. I wrote it to learn vocabulary in a new language.
+A little program that do quizzes. I wrote it to learn vocabulary in a new language.
 
 
 * [How to use it?](#how-to-use-it?)
