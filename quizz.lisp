@@ -94,26 +94,6 @@
     resp))
 
 
-
-(defun response-old (word)
-  "Read input from the user until he use a command or find the right answer"
-  (let ((resp (read-line)))
-    (alexandria:switch (resp :test #'string=)
-      ("!quit" resp)
-      (word 
-       (setf *hint-level* 0)
-       resp)
-      ("!help" 
-       (print +help+)
-       (response word))
-      ("!pass" resp)
-      ("!hint" 
-       (print (give-hint word))
-       (response word))
-      (otherwise 
-       (response word)))))
-
-
 (defun loop-default (&key (language 'lang1))
   (let ((current-question (ask-question :language language)))
     (print "Translate this word: ")
